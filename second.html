@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gentle Parenting App</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gentle Parenting App</title>
+    <style>
+        body {
+            background-color: #e0f2f1; /* Light blue background color */
+            margin: 20px; /* Add spacing around the container */
+        }
+        .container {
+            background-color: white; /* White background color for the container */
+            padding: 20px; /* Add padding inside the container */
+            border-radius: 10px; /* Add rounded corners to the container */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a shadow effect */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Gentle Parenting App</h1>
+        <label for="theme">Theme of Child's Infraction:</label>
+        <select id="theme">
+            <option value="misbehavior">Misbehavior</option>
+            <option value="tantrums">Tantrums</option>
+            <option value="acts of violence">Acts of Violence</option>
+            <option value="rewards">Rewards</option>
+        </select>
+        <label for="severity">Severity Level:</label>
+        <input type="range" id="severity" min="0" max="5" value="0">
+        <button id="submitButton">Get Suggestion</button>
+        <div id="response"></div>
+
+        <div id="chatbox">
+            <div id="chatlogs"></div>
+            <input type="text" id="chatInput" placeholder="Type your message...">
+            <button id="sendButton">Send</button>
+        </div>
+    </div>
+
+    <script>
+        
+    // GentleParentingApp class
+class GentleParentingApp {
+    constructor() {
+        this.gentleSuggestions = {};
+        this.generateSuggestions();
+        this.setupChat();
+    }
+
+    // Generate suggestions for different themes and severities
+    generateSuggestions() {
+        // Suggestions for dealing with misbehavior
+        this.gentleSuggestions["misbehavior"] = {
+            1: "Tell them what they did is wrong and why.",
+            2: "Tell them what they did is wrong and why.",
+            3: "Take a deep breath, watch your words, decide on a reasonable punishment, and talk to your child later.",
+            4: "Take a deep breath, watch your words, decide on a reasonable punishment, and talk to your child later.",
+            5: "Take five minutes to yourself to calm down. Then, calmly speak to someone for advice. Wait until you have calmed down before responding and finding out why they did what they did."
+        };
+
+        // Suggestions for handling tantrums
+        this.gentleSuggestions["tantrums"] = {
+            1: "Offer comfort and reassurance.",
+            2: "Offer comfort and reassurance.",
+            3: "Stay calm, provide comfort and reassurance, and set clear limits.",
+            4: "Stay calm, provide comfort and reassurance, and set clear limits.",
+            5: "Stay calm, provide comfort and reassurance, and set clear limits."
+        };
+
+        // Suggestions for dealing with acts of violence
+        this.gentleSuggestions["acts of violence"] = {
+            1: "Immediately intervene and remove the child from the situation.",
+            2: "Immediately intervene and remove the child from the situation.",
+            3: "Stay calm, express disapproval of the behavior, and provide alternatives to express frustration or anger.",
+            4: "Stay calm, express disapproval of the behavior, and provide alternatives to express frustration or anger.",
+            5: "Stay calm, express disapproval of the behavior, and provide alternatives to express frustration or anger."
+        };
+
+        // Suggestions for rewarding positive behavior
+        this.gentleSuggestions["rewards"] = {
+            1: "Offer verbal praise and acknowledgment of the behavior.",
+            2: "Offer verbal praise and acknowledgment of the behavior.",
+            3: "Offer verbal praise, acknowledgment of the behavior, and a small reward.",
+            4: "Offer verbal praise, acknowledgment of the behavior, and a small reward.",
+            5: "Offer verbal praise, acknowledgment of the behavior, and a small reward."
+        };
+    }
+
+    // Setup chat functionality
+    setupChat() {
+        const chatInput = document.getElementById("chatInput");
+        const sendButton = document.getElementById("sendButton");
+        const chatlogs = document.getElementById("chatlogs");
+
+        sendButton.addEventListener("click", () => {
+            const userInput = chatInput.value.toLowerCase();
+            const botResponse = this.chatWithBot(userInput);
+            this.appendToChatlog(userInput, "user");
+            this.appendToChatlog(botResponse, "bot");
+            chatInput.value = ""; // Clear input after sending
+        });
+    }
+
+    // Method to interact with the chatbot
+    chatWithBot(userInput) {
+        let botResponse = "";
+        // Simple chatbot responses
+        if (userInput.includes("resources")) {
+            botResponse = "Displaying resources...";
+        } else if (userInput.includes("goals")) {
+            botResponse = "Displaying parenting goals...";
+        } else if (userInput.includes("community")) {
+            botResponse = "Displaying community posts...";
+        } else {
+            botResponse = "I'm sorry, I didn't understand your request. Please try again.";
+        }
+        return botResponse;
+    }
+
+    // Append chat messages to chatlogs
+    appendToChatlog(message, sender) {
+        const chatlogs = document.getElementById("chatlogs");
+        const messageDiv = document.createElement("div");
+        messageDiv.classList.add("chat-message");
+        messageDiv.classList.add(sender);
+        messageDiv.textContent = message;
+        chatlogs.appendChild(messageDiv);
+    }
+
+    // Get suggestion based on theme and severity
+    getSuggestionsForPrompt(theme, severity) {
+        return this.gentleSuggestions[theme][severity];
+    }
+}
+
+// Instantiate GentleParentingApp
+const app = new GentleParentingApp();
+
+// Add event listener to submit button
+document.getElementById("submitButton").addEventListener("click", () => {
+    const theme = document.getElementById("theme").value;
+    const severity = document.getElementById("severity").value;
+
+    // Get suggestions based on the chosen theme and severity
+    const suggestion = app.getSuggestionsForPrompt(theme, severity);
+
+    // Display the suggestion
+    document.getElementById("response").innerHTML = `Response to child's infraction:<br>- ${suggestion}`;
+});
+
+
+    </script>
+</body>
+</html>

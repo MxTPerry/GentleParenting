@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GentleParent+ App</title>
+    <style>
+        body {
+            background-color: #639fff; /* Light blue background color */
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        textarea {
+            background-color: rgb(249, 180, 242);
+            width: 300px;
+            height: 100px;
+            padding: 10px;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GentleParent+ App</h1>
+        <textarea id="userInput" placeholder="Enter your message..."></textarea><br>
+        <button onclick="chatWithBot()">Send</button>
+        <div id="chatOutput"></div>
+    </div>
+
+    <script>
+        // Define a class for the GentleParent+ app
+        class GentleParentApp {
+            constructor() {
+                this.resources = [];
+                this.goals = [];
+                this.communityPosts = [];
+            }
+
+            // Method to add resources
+            addResource(resource) {
+                this.resources.push(resource);
+            }
+
+            // Method to add goals
+            addGoal(goal) {
+                this.goals.push(goal);
+            }
+
+            // Method to add community posts
+            addCommunityPost(post) {
+                this.communityPosts.push(post);
+            }
+
+            // Method to display resources
+            displayResources() {
+                return "Gentle Parenting Resources:<br>" + this.resources.join("<br>");
+            }
+
+            // Method to display goals
+            displayGoals() {
+                return "Your Parenting Goals:<br>" + this.goals.join("<br>");
+            }
+
+            // Method to display community posts
+            displayCommunityPosts() {
+                return "Community Posts:<br>" + this.communityPosts.join("<br>");
+            }
+
+            // Method to interact with the chatbot
+            chatWithBot(userInput) {
+                let output = "";
+                // Simple chatbot responses
+                if (userInput.includes("resources")) {
+                    output = this.displayResources();
+                } else if (userInput.includes("goals")) {
+                    output = this.displayGoals();
+                } else if (userInput.includes("community")) {
+                    output = this.displayCommunityPosts();
+                } else {
+                    output = "I'm sorry, I didn't understand your request. Please try again.";
+                }
+                document.getElementById("chatOutput").innerHTML = output;
+            }
+        }
+
+        // Create an instance of the GentleParentApp
+        const app = new GentleParentApp();
+
+        // Add sample resources
+        app.addResource("Article: Gentle Discipline Techniques");
+        app.addResource("Video: Effective Communication with Kids");
+
+        // Add sample goals
+        app.addGoal("Reduce use of physical discipline by 50%");
+        app.addGoal("Improve communication with my child");
+
+        // Add sample community posts
+        app.addCommunityPost("Joined the GentleParent+ community! Excited to learn from others.");
+        app.addCommunityPost("Looking for advice on handling tantrums gently. Any tips?");
+
+        // Function to handle user input and interact with the chatbot
+        function chatWithBot() {
+            let userInput = document.getElementById("userInput").value.toLowerCase();
+            app.chatWithBot(userInput);
+        }
+    </script>
+</body>
+</html>
